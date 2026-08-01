@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+:root {
+  --pink: #ff6b9d;
+  --pink-light: #ffb3cc;
+  --pink-pale: #fff0f5;
+  --red: #e8344a;
+  --peach: #ffb347;
+  --lavender: #c9b8e8;
+  --mint: #b8e8d0;
+  --cream: #fff8f0;
+}
+
+/* Custom cursor */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.3) 0%, transparent 70%);
+  transition: transform 0.15s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #fff0f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff6b9d;
+  border-radius: 10px;
+}
+
+/* Font classes */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+.font-dancing {
+  font-family: 'Dancing Script', cursive;
+}
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Keyframe animations */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+@keyframes sakuraFall {
+  0% { transform: translateY(-100px) rotate(0deg) translateX(0px); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) translateX(80px); opacity: 0; }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 107, 157, 0.6); }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes firework {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes envelopeOpen {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-180deg); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes waveText {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,157,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,107,157,0); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes heartPop {
+  0% { transform: scale(0) translateY(0); opacity: 1; }
+  100% { transform: scale(1.5) translateY(-80px); opacity: 0; }
+}
+
+.animate-heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 4s ease-in-out infinite; }
+.animate-sparkle { animation: sparkle 2s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.6s ease forwards; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-star-twinkle { animation: starTwinkle 2s ease-in-out infinite; }
+.animate-music-pulse { animation: musicPulse 2s ease-in-out infinite; }
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.glass-dark {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ff6b9d, #c9b8e8, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-pink {
+  background: linear-gradient(135deg, #e8344a, #ff6b9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* PIN input styling */
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  transition: all 0.2s ease;
+}
+.pin-dot.filled {
+  background: #ff6b9d;
+  transform: scale(1.2);
+}
+
+/* Masonry grid */
+.masonry-grid {
+  column-count: 3;
+  column-gap: 16px;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .masonry-grid { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .masonry-grid { column-count: 1; }
+}
+
+/* Starry background */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+/* Frosted navbar */
+.frosted-nav {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,107,157,0.1);
+}
+
+/* Breakout game */
+.game-canvas {
+  border-radius: 16px;
+  border: 2px solid rgba(255, 107, 157, 0.3);
+}
+
+/* Timeline */
+.timeline-line {
+  width: 2px;
+  background: linear-gradient(to bottom, #ff6b9d, #c9b8e8, #b8e8d0);
+}
+
+/* Polaroid */
+.polaroid {
+  background: white;
+  padding: 12px 12px 40px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* Spotify embed */
+.spotify-player {
+  animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* iMessage bubbles */
+.imessage-bubble-right {
+  background: #007AFF;
+  color: white;
+  border-radius: 20px 20px 4px 20px;
+}
+.imessage-bubble-left {
+  background: #E9E9EB;
+  color: #1c1c1e;
+  border-radius: 20px 20px 20px 4px;
+}
+
+/* Page transitions */
+.page-enter {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Mood gradient backgrounds */
+.bg-romantic {
+  background: linear-gradient(135deg, #fff0f5 0%, #ffe4f0 50%, #fff5fb 100%);
+}
+.bg-dreamy {
+  background: linear-gradient(135deg, #f0e6ff 0%, #e6f0ff 50%, #ffe6f0 100%);
+}
+.bg-starry {
+  background: linear-gradient(180deg, #0a0015 0%, #1a0030 50%, #0d001a 100%);
+}
+
+/* Dark mode */
+.dark-mode {
+  background: #0d0015 !important;
+  color: #fff !important;
+}
