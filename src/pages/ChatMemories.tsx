@@ -195,7 +195,7 @@ const conversations = [
   { me: false, text: "Xhya haina xhiii", time: "10:40 PM" },
   { me: true, text: "📹 Reel", time: "10:24 PM" },
   { me: true, text: "Yo thiyo", time: "10:25 PM" },
-  { me: false, text: "Xhya haina xhiii", time: "10:25 PM" },
+  { me: false, text: "Yee khai Haina hai xhya mah kasaiko gf", time: "10:25 PM" },
  ],
   },
 
