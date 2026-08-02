@@ -234,7 +234,7 @@ export default function ChatMemories({ onBack, dark }: Props) {
                 💬 Sweet Messages
               </h1>
               <p className="font-dancing text-lg" style={{ color: dark ? '#adf' : '#007AFF' }}>
-                our favorite conversations
+                 Mitho Conversations
               </p>
             </div>
           )}
