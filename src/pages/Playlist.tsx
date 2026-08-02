@@ -252,7 +252,7 @@ export default function Playlist({ onBack, dark }: Props) {
                     className="font-inter text-sm mt-2"
                     style={{ color: dark ? 'rgba(255,255,255,0.3)' : '#d1d5db' }}
                   >
-                    Every track holds a piece of us
+                    Every track holds a piece of heart
                   </p>
                 </motion.div>
               )}
