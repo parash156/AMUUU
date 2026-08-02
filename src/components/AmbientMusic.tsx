@@ -67,27 +67,37 @@ export default function AmbientMusic() {
   };
 
   return (
-    <motion.button
-      onClick={toggle}
-      whileTap={{ scale: 0.9 }}
-      whileHover={{ scale: 1.1 }}
-      className="fixed bottom-6 left-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-pink-100 shadow-lg glass"
-      title={playing ? 'Mute ambient music' : 'Play ambient music'}
+  <motion.button
+    onClick={toggle}
+    whileTap={{ scale: 0.9 }}
+    whileHover={{ scale: 1.1 }}
+    className="
+      fixed z-50 
+      bottom-3 left-3          /* higher on mobile so it doesn’t cover footer */
+      md:bottom-6 md:left-6     /* normal position on desktop */
+      flex h-11 w-11 md:h-12 md:w-12 
+      items-center justify-center 
+      rounded-full 
+      border border-pink-100 
+      shadow-lg glass
+    "
+    title={playing ? 'Mute ambient music' : 'Play ambient music'}
+  >
+    <motion.span
+      animate={playing ? { rotate: [0, 10, -10, 0] } : { rotate: 0 }}
+      transition={{ repeat: Infinity, duration: 1.5 }}
+      className="text-lg md:text-xl"
     >
-      <motion.span
-        animate={playing ? { rotate: [0, 10, -10, 0] } : { rotate: 0 }}
+      {playing ? '🎶' : '🔇'}
+    </motion.span>
+
+    {playing && (
+      <motion.div
+        className="absolute inset-0 rounded-full border-2 border-pink-400"
+        animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
-        className="text-xl"
-      >
-        {playing ? '🎶' : '🔇'}
-      </motion.span>
-      {playing && (
-        <motion.div
-          className="absolute inset-0 rounded-full border-2 border-pink-400"
-          animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        />
-      )}
-    </motion.button>
-  );
+      />
+    )}
+  </motion.button>
+);
 }
