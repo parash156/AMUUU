@@ -231,7 +231,7 @@ export default function TimeCapsule({ onBack, dark }: Props) {
             className="mt-6 font-inter text-[11px] tracking-wide"
             style={{ color: dark ? 'rgba(255,255,255,0.3)' : '#9ca3af' }}
           >
-            Hint: My Birth Date
+            Hint: Someone Mix Birth Date
           </p>
         </motion.div>
       </motion.div>
