@@ -68,7 +68,7 @@ export default function LoveLetter({ onBack, dark }: Props) {
               className="font-dancing text-xl"
               style={{ color: dark ? '#ff9cc0' : '#e8344a' }}
             >
-              open when you’re ready
+              for this moment
             </p>
           </motion.div>
 
@@ -171,16 +171,16 @@ export default function LoveLetter({ onBack, dark }: Props) {
                 </h2>
 
                 <div className="space-y-5">
-                  {[
-  "Dear Amisha,",
-  "Happy Birthday. 🤍🎉 I wanted to do something a little different this year, so I made this small corner of the internet just for you.",
-  "It's funny how our conversations started with simple things a drama recommendation, a book, or a random reel. Somehow those little moments became memories worth keeping.",
-  "Thank you for introducing me to stories like The First Frost and Welcome to Samdal-ri. You really do have great taste. 😄",
-  "As you continue your nursing journey, I hope you always carry the same kindness and compassion that make you who you are. I know you'll make a difference in many lives.",
-  "And of course... I couldn't forget the August-born Leo girl. 😄 I hope this new year brings you happiness, success, good health, and everything you've been wishing for.",
-  "Keep smiling, keep chasing your dreams, and keep those 10/10 recommendations coming. 🌸",
-  "Happy Birthday once again. I hope today is as wonderful as you are. 🤍",
-].map((para, i) => (
+  {[
+    "Happy Birthday. 🤍🎉",
+    "Wishing you a year filled with happiness, good health, peace, and countless beautiful memories. I hope every new day brings you one step closer to the life you've always dreamed of.",
+    "May your nursing journey be filled with success, meaningful experiences, and people whose lives become a little brighter because of your kindness and care. 👩‍⚕️",
+    "And of course... I couldn't forget the August-born Leo girl. ♌🦁 May this new chapter be your happiest one yet, full of laughter, adventures, and moments you'll always cherish.",
+    "Sadhai khusi rahanu, afno sapana haru pura gardai janu, and keep those 10/10 recommendations coming. 😅",
+    "Enjoy your special day, eat lots of cake, make beautiful memories, and remember that today is all about celebrating you. ❤️",
+    "Happy Birthday once again, Amisha. Janmadinko dherai dherai shubhakamanaaaaaaaaaa! 🤍",
+  
+  ].map((para, i) => (
                     <motion.p
                       key={i}
                       initial={{ opacity: 0, y: 12 }}
