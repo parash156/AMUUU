@@ -17,39 +17,38 @@ type Scene =
   | 'fireworks'
   | 'letter'
   | 'memories'
-  | 'universe'
   | 'final';
 
 const LETTER_TEXT = `For Amisha,
 
-Some people receive birthday wishes.
-You received a little corner of the internet,
-made with time, care, and a lot of thought.
+If you've reached this page...
 
-It's funny how simple things
-a book, a drama recommendation,
-or a random reel
-turned into memories worth keeping.
+Thank you.
 
-Thank you for every conversation,
-every recommendation,
-and every little moment along the way.
+You might still be wondering why someone like me would spend so much time building an entire website for your birthday.
 
-I hope your nursing journey brings you endless opportunities,
-your dreams become reality,
-and your August-born Leo spirit never loses its fire.
+The truth is... I don't really have a complicated answer.
 
-May life always be kind to you.
-May your happiness outshine every star in the sky.
-May you always have a reason to smile,
-and people who appreciate you for exactly who you are.
+At some point, I started noticing the birthday reels you reposted. Some were happy, some were emotional, but every time I came across one, it quietly stayed in my mind. It made me feel that birthdays weren't just another date on the calendar for you. Maybe I understood them the wrong way, maybe I didn't... they made me stop and think.
 
-Happy Birthday, Amisha. 🤍
+You always seem like a strong August-born Leo girl someone who keeps moving forward no matter what. But even the strongest people deserve a day where they feel appreciated, celebrated, and genuinely khusi.
 
-With warm wishes,
+That's why I made this.
+
+Not because I expected anything in return. Not because I wanted to impress you. I simply thought... if a random person like me could make your birthday a little brighter, even if it was only for a few minutes, then every late night, every page, every animation, and every tiny detail would be completely worth it.
+
+It's funny how everything started with such simple things... a drama recommendation, a book, or a random reel. Somehow, those little conversations turned into memories I genuinely enjoyed. Thank you for introducing me to The First Frost and Welcome to Samdal-ri. They'll always remind me of the person who recommended them.
+
+Life gives us countless ordinary days, but birthdays come only once every year. So I sincerely hope that today gives you beautiful memories, genuine laughter, and reminds you just how special you are.
+
+Maybe years from now you'll come across this little website again. If that happens, I hope you don't remember the code or the animations... I hope you simply remember that someone, who was just another person in your life, genuinely wanted to make your birthday a little more special.
+
+Sadhai khusi rahanu, afno sapana haru pura gardai janu, and never lose that spark that makes you... you.
+
+Happy Birthday once again, Amisha.
+Take care.
 
 — Parash 🌸`;
-
 export default function UniverseForAmisha({ onFinish }: Props) {
   const [scene, setScene] = useState<Scene>('darkness');
   const [giftOpened, setGiftOpened] = useState(false);
@@ -60,45 +59,51 @@ export default function UniverseForAmisha({ onFinish }: Props) {
   const [showShootingStar, setShowShootingStar] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const typeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [letterDone, setLetterDone] = useState(false);
+  const letterBodyRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  if (letterBodyRef.current) {
+    letterBodyRef.current.scrollTop = letterBodyRef.current.scrollHeight;
+  }
+}, [typedText]);
 
   // Scene timeline
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     if (scene === 'darkness') {
-      timers.push(setTimeout(() => setScene('stars'), 7000));
+      timers.push(setTimeout(() => setScene('stars'), 28000));
     }
     if (scene === 'fireworks') {
       timers.push(setTimeout(() => setScene('letter'), 9000));
     }
     if (scene === 'memories') {
-      timers.push(setTimeout(() => setScene('universe'), 10000));
-    }
-    if (scene === 'universe') {
-      timers.push(setTimeout(() => setScene('final'), 8000));
+      timers.push(setTimeout(() => setScene('final'), 10000));
     }
 
     return () => timers.forEach(clearTimeout);
   }, [scene]);
 
-  // Typewriter letter
-  useEffect(() => {
-    if (scene === 'letter' && letterOpen) {
-      let i = 0;
-      setTypedText('');
-      typeInterval.current = setInterval(() => {
-        i++;
-        setTypedText(LETTER_TEXT.slice(0, i));
-        if (i >= LETTER_TEXT.length) {
-          if (typeInterval.current) clearInterval(typeInterval.current);
-          setTimeout(() => setScene('memories'), 8500);
-        }
-      }, 28);
-    }
-    return () => {
-      if (typeInterval.current) clearInterval(typeInterval.current);
-    };
-  }, [scene, letterOpen]);
+  /// Typewriter letter
+useEffect(() => {
+  if (scene === 'letter' && letterOpen) {
+    let i = 0;
+    setTypedText('');
+    setLetterDone(false);
+    typeInterval.current = setInterval(() => {
+      i++;
+      setTypedText(LETTER_TEXT.slice(0, i));
+      if (i >= LETTER_TEXT.length) {
+        if (typeInterval.current) clearInterval(typeInterval.current);
+        setLetterDone(true); // wait for Continue button — no auto skip
+      }
+    }, 22); // slightly faster for long letter
+  }
+  return () => {
+    if (typeInterval.current) clearInterval(typeInterval.current);
+  };
+}, [scene, letterOpen]);
 
   // Shooting star on final
   useEffect(() => {
@@ -130,34 +135,183 @@ export default function UniverseForAmisha({ onFinish }: Props) {
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-black text-white select-none">
       <AnimatePresence mode="wait">
-        {/* ═══ SCENE 1 — DARKNESS ═══ */}
-        {scene === 'darkness' && (
+        
+      {/* ═══ SCENE 1 — A STAR FOUND SOMEONE (FINAL GRAND) ═══ */}
+{scene === 'darkness' && (
+  <motion.div
+    key="darkness"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0, transition: { duration: 2.2 } }}
+    transition={{ duration: 1.5 }}
+    className="absolute inset-0 flex flex-col items-center justify-center bg-black overflow-hidden"
+  >
+    {/* Soft night sky gradient */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          'radial-gradient(ellipse at 50% 20%, #0a1628 0%, #050d18 45%, #02060e 100%)',
+      }}
+    />
+
+    {/* ── COUNTDOWN ── */}
+    <div className="absolute inset-0 flex items-center justify-center z-40">
+      {[3, 2, 1].map((num, i) => (
+        <motion.span
+          key={num}
+          initial={{ opacity: 0, scale: 0.15 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            scale: [0.15, 1.3, 1, 1.7],
+          }}
+          transition={{
+            duration: 1.4,
+            times: [0, 0.2, 0.7, 1],
+            delay: 0.7 + i * 1.5,
+          }}
+          className="absolute font-playfair text-8xl md:text-9xl font-medium text-white tracking-tighter"
+        >
+          {num}
+        </motion.span>
+      ))}
+    </div>
+
+    {/* ── STARS ── */}
+    {!prefersReducedMotion &&
+      Array.from({ length: 140 }).map((_, i) => {
+        const size = Math.random() * 2.4 + 0.7;
+        return (
           <motion.div
-            key="darkness"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2 }}
-            className="absolute inset-0 flex flex-col items-center justify-center bg-black px-6 text-center"
-          >
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 1.5 }}
-              className="font-playfair text-xl md:text-2xl text-white/90 max-w-md leading-relaxed"
-            >
-              Some people deserve more than just a birthday wish...
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 3.8, duration: 1.8 }}
-              className="font-playfair text-xl md:text-2xl text-pink-300/90 mt-6 max-w-md"
-            >
-              they deserve their own universe.
-            </motion.p>
-          </motion.div>
-        )}
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              width: size,
+              height: size,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: [0, Math.random() * 0.75 + 0.2, Math.random() * 0.5 + 0.15],
+              scale: 1,
+            }}
+            transition={{
+              delay: 5.8 + Math.random() * 3.5,
+              duration: 2.6 + Math.random() * 2,
+              ease: 'easeOut',
+            }}
+          />
+        );
+      })}
+
+    {/* ── THE MOON ── */}
+    <motion.div
+      className="absolute left-1/2 -translate-x-1/2 z-20
+                 top-[20%] md:top-[28%]"   // ← higher on mobile, balanced on desktop
+      initial={{ scale: 0.15, opacity: 0 }}
+      animate={{
+        scale: 1,
+        opacity: 1,
+      }}
+      transition={{
+        delay: 10.5,
+        duration: 5.5,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+    >
+      {/* Soft moon glow */}
+      <div
+        className="absolute inset-0 rounded-full blur-3xl opacity-50"
+        style={{
+          background: 'radial-gradient(circle, rgba(255,240,210,0.55) 0%, transparent 70%)',
+          transform: 'scale(1.9)',
+        }}
+      />
+
+      {/* Moon body */}
+      <div
+        className="relative w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden"
+        style={{
+          background:
+            'radial-gradient(circle at 35% 30%, #fff8e7 0%, #f0e0c0 40%, #d4c4a0 75%, #b8a888 100%)',
+          boxShadow:
+            '0 0 70px rgba(255,240,200,0.4), inset -22px -16px 40px rgba(0,0,0,0.18)',
+        }}
+      >
+        {/* Soft craters */}
+        <div className="absolute rounded-full opacity-20" style={{ width: 28, height: 28, top: '26%', left: '22%', background: 'rgba(0,0,0,0.25)' }} />
+        <div className="absolute rounded-full opacity-15" style={{ width: 18, height: 18, top: '55%', left: '58%', background: 'rgba(0,0,0,0.25)' }} />
+        <div className="absolute rounded-full opacity-12" style={{ width: 14, height: 14, top: '40%', left: '70%', background: 'rgba(0,0,0,0.2)' }} />
+        <div className="absolute rounded-full opacity-10" style={{ width: 11, height: 11, top: '68%', left: '32%', background: 'rgba(0,0,0,0.18)' }} />
+      </div>
+    </motion.div>
+
+    {/* ── CINEMATIC TEXT ── */}
+    <div className="absolute inset-0 flex flex-col items-center justify-end 
+                    pb-[20%] md:pb-[11%] z-30 px-6">
+      
+      <motion.p
+        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ delay: 15.0, duration: 2.2 }}
+        className="font-playfair text-sm md:text-lg tracking-[0.22em] text-white/90 mb-3 md:mb-4"
+        style={{ textShadow: '0 0 24px rgba(255,255,255,0.3)' }}
+      >
+        Among billions of stars
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ delay: 17.4, duration: 2.0 }}
+        className="font-playfair text-lg md:text-2xl text-pink-100 mb-6 md:mb-8 max-w-md text-center leading-relaxed"
+        style={{ textShadow: '0 0 28px rgba(255,180,200,0.4)' }}
+      >
+        Today, one shines a little brighter
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 20.0, duration: 1.6 }}
+        className="font-inter text-[10px] md:text-[11px] tracking-[0.42em] uppercase text-white/75 mb-4 md:mb-5"
+      >
+        August 2
+      </motion.p>
+
+      <motion.h1
+        initial={{ opacity: 0, y: 24, filter: 'blur(10px)', scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
+        transition={{ delay: 21.6, duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
+        className="font-playfair text-3xl md:text-5xl lg:text-6xl text-white tracking-wide text-center"
+        style={{ textShadow: '0 0 40px rgba(255,255,255,0.18)' }}
+      >
+        Happy Birthday,
+        <br />
+        <span
+          className="inline-block mt-1"
+          style={{
+            background: 'linear-gradient(135deg, #ffffff 0%, #ffc2d4 45%, #e8c4ff 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}
+        >
+          Amisha
+        </span>
+      </motion.h1>
+    </div>
+
+    {/* Soft vignette */}
+    <div
+      className="absolute inset-0 pointer-events-none z-10"
+      style={{
+        background:
+          'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%)',
+      }}
+    />
+  </motion.div>
+)}
 
         {/* ═══ SCENE 2 — STARS ═══ */}
         {scene === 'stars' && (
@@ -605,49 +759,167 @@ export default function UniverseForAmisha({ onFinish }: Props) {
           </motion.div>
         )}
 
-        {/* ═══ SCENE 6 — LETTER ═══ */}
-        {scene === 'letter' && (
-          <motion.div
-            key="letter"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 flex items-center justify-center bg-[#0a0014] px-4"
+   {/* ═══ SCENE 6 — LETTER ═══ */}
+{scene === 'letter' && (
+  <motion.div
+    key="letter"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="absolute inset-0 flex items-center justify-center overflow-hidden"
+    style={{
+      background:
+        'radial-gradient(ellipse at 50% 30%, #1a0c2e 0%, #0d0618 40%, #06030c 70%, #020108 100%)',
+    }}
+  >
+    {/* Particles */}
+    {!prefersReducedMotion &&
+      Array.from({ length: 28 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: Math.random() * 2.5 + 0.5,
+            height: Math.random() * 2.5 + 0.5,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            background: 'rgba(255, 200, 220, 0.7)',
+          }}
+          animate={{ opacity: [0.1, 0.45, 0.1], y: [0, -16, 0] }}
+          transition={{
+            duration: 4 + Math.random() * 4,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+          }}
+        />
+      ))}
+
+    {/* Glow */}
+    <div
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[420px] rounded-full pointer-events-none opacity-30 blur-3xl"
+      style={{
+        background:
+          'radial-gradient(circle, rgba(255,130,180,0.4) 0%, rgba(180,100,200,0.15) 45%, transparent 70%)',
+      }}
+    />
+
+    {/* Vignette */}
+    <div
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        background:
+          'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)',
+      }}
+    />
+
+    {!letterOpen ? (
+      /* Envelope */
+      <motion.button
+        onClick={openLetter}
+        whileHover={{ scale: 1.06, y: -8 }}
+        whileTap={{ scale: 0.97 }}
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="relative z-10 focus:outline-none flex flex-col items-center gap-6"
+      >
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="text-8xl"
+          style={{
+            filter: 'drop-shadow(0 0 30px rgba(255,150,180,0.45))',
+          }}
+        >
+          💌
+        </motion.div>
+        <p className="font-dancing text-2xl text-pink-300/90">
+          A letter for you
+        </p>
+      </motion.button>
+    ) : (
+      /* Letter paper */
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.94 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-lg max-h-[82vh] flex flex-col px-3"
+      >
+        <div
+          className="relative flex-1 overflow-hidden rounded-sm flex flex-col"
+          style={{
+            background: 'linear-gradient(180deg, #fffef9 0%, #f7f0e6 100%)',
+            boxShadow:
+              '0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,200,180,0.15)',
+          }}
+        >
+          {/* Top ribbon */}
+          <div
+            className="h-2 shrink-0"
+            style={{
+              background:
+                'linear-gradient(90deg, #ffb3c8, #ff6b9d, #e0c3fc, #ffb3c8)',
+            }}
+          />
+
+          <div className="absolute top-4 left-4 text-lg opacity-25">🌸</div>
+          <div className="absolute top-4 right-4 text-lg opacity-25">🌸</div>
+
+          {/* Scrollable text */}
+          <div
+            ref={letterBodyRef}
+            className="flex-1 overflow-y-auto px-6 py-7 md:px-9 md:py-8"
           >
-            {!letterOpen ? (
-              <motion.button
-                onClick={openLetter}
-                whileHover={{ scale: 1.06, y: -6 }}
-                whileTap={{ scale: 0.97 }}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="text-7xl focus:outline-none"
-              >
-                💌
-              </motion.button>
-            ) : (
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="max-w-lg w-full bg-[#fffaf5] text-[#2a1a1a] rounded-sm shadow-2xl p-8 md:p-10 relative"
-                style={{
-                  boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
-                  fontFamily: 'Georgia, serif',
-                }}
-              >
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-pink-300 via-rose-200 to-amber-200" />
-                <pre className="whitespace-pre-wrap font-serif text-[15px] leading-relaxed tracking-wide">
-                  {typedText}
-                  <motion.span
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ repeat: Infinity, duration: 0.6 }}
-                    className="inline-block w-0.5 h-4 bg-pink-400 ml-0.5 align-middle"
-                  />
-                </pre>
-              </motion.div>
-            )}
-          </motion.div>
-        )}
+            <p
+              className="font-inter text-[10px] tracking-[0.3em] uppercase mb-5"
+              style={{ color: '#c9a07a' }}
+            >
+              Written with care
+            </p>
+
+            <pre
+              className="whitespace-pre-wrap text-[13.5px] md:text-[14.5px] leading-[1.85] tracking-wide"
+              style={{
+                fontFamily: 'Georgia, "Times New Roman", serif',
+                color: '#2c2419',
+              }}
+            >
+              {typedText}
+              {!letterDone && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.55 }}
+                  className="inline-block w-[2px] h-[14px] bg-pink-400 ml-0.5 align-middle rounded-full"
+                />
+              )}
+            </pre>
+          </div>
+        </div>
+
+        {/* Continue */}
+        <AnimatePresence>
+          {letterDone && (
+            <motion.button
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setScene('memories')}
+              className="mt-5 mx-auto px-10 py-3.5 rounded-full font-inter text-sm tracking-wide text-white shrink-0"
+              style={{
+                background: 'linear-gradient(135deg, #ff6b9d 0%, #c9b8e8 100%)',
+                boxShadow:
+                  '0 12px 35px rgba(255,107,157,0.4), 0 0 0 1px rgba(255,255,255,0.1)',
+              }}
+            >
+              Continue →
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    )}
+  </motion.div>
+)}
 
         {/* ═══ SCENE 7 — THINGS I NOTICED ═══ */}
 {scene === 'memories' && (
@@ -782,62 +1054,7 @@ export default function UniverseForAmisha({ onFinish }: Props) {
     </motion.p>
   </motion.div>
 )}
-
-        {/* ═══ SCENE 8 — UNIVERSE ═══ */}
-        {scene === 'universe' && (
-          <motion.div
-            key="universe"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 flex items-center justify-center bg-black"
-          >
-            {!prefersReducedMotion &&
-              Array.from({ length: 80 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute rounded-full bg-white"
-                  style={{
-                    width: Math.random() * 2 + 0.5,
-                    height: Math.random() * 2 + 0.5,
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{ opacity: [0.2, 0.9, 0.2] }}
-                  transition={{
-                    duration: 2 + Math.random() * 3,
-                    repeat: Infinity,
-                  }}
-                />
-              ))}
-
-            <motion.div
-              initial={{ scale: 0.2, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 3, ease: 'easeOut' }}
-              className="text-center"
-            >
-              <motion.div
-                className="text-6xl mb-4"
-                animate={{ scale: [1, 1.15, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                🤍
-              </motion.div>
-              <h1
-                className="font-playfair text-5xl md:text-7xl font-bold tracking-widest"
-                style={{
-                  background: 'linear-gradient(135deg, #ff9ec7, #c9b8e8, #89f7fe)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                AMISHA
-              </h1>
-            </motion.div>
-          </motion.div>
-        )}
-
+     
       {/* ═══ SCENE 9 — FINAL ═══ */}
 {scene === 'final' && (
   <motion.div
